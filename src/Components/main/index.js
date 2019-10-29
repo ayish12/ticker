@@ -55,8 +55,6 @@ const Main = props => {
     // console.log({ name }, value)
   };
 
-  // console.log(formelements)
-
 
   const getProjectName = id => {
     const pn = projectData.filter(project => project._id === id);

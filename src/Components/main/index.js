@@ -156,8 +156,8 @@ const Main = props => {
           class="col-sm-10"
           style={{ backgroundColor: "#ecf0f1", minHeight: "100vh" }}
         >
-          <p>{user}</p>
-          <form  
+          <p>{user}</p> 
+          <form
             onSubmit={e => e.preventDefault()}
             style={{ display: "flex", alignItems: "center" }}
           >
@@ -194,7 +194,7 @@ const Main = props => {
               Add
             </button>
             <br />
-            <br /> 
+            <br />
             {/* <input
                     class="form-control"
                     type="text" name="taskname" placeholder="taskname" value={formelements.taskname}

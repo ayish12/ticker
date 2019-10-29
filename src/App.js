@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import Navbar from './Components/Navbar'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import Sidebar from './Components/Sidebar';
-import Login from './Components/login';
-import Sign from './Components/signup';
-import Main from './Components/main'
+import React, { useState } from "react";
+import Navbar from "./Components/Navbar";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Sidebar from "./Components/Sidebar";
+import Login from "./Components/login";
+import Sign from "./Components/signup";
+import Main from "./Components/main";
+import Project from "./Components/project";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Sign} />
+          <Route path="/project" component={Project} />
         </Switch>
         {/* <Navbar userName="Ayish" userEmail="ayisha@gmail.com" />
       <Sidebar task="task1" />

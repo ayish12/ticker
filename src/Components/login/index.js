@@ -14,7 +14,7 @@ const Login = props => {
     };
 
     axios
-      .post("http://localhost:8080/user/login", data)
+      .post("http://192.168.35.39:8080/user/login", data)
       .then(res => {
         localStorage.setItem("token", res.data.token);
         // var token = localStorage.getItem(token)

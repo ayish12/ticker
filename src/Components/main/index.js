@@ -26,7 +26,7 @@ const Main = props => {
 
   useEffect(async () => {
     await axios
-      .post("http://localhost:8080/task/projectlist", { token })
+      .post("http://192.168.35.39:8080/task/projectlist", { token })
       .then(res => {
         setProjectData(res.data);
       })
@@ -35,7 +35,7 @@ const Main = props => {
       });
 
     await axios
-      .post("http://localhost:8080/task/list", { token })
+      .post("http://192.168.35.39:8080/task/list", { token })
       .then(res => {
         setTaskList(res.data);
       })
@@ -56,15 +56,7 @@ const Main = props => {
   };
 
   // console.log(formelements)
-  const Proj = (projectname, value) => {
-    var pname = formelements.projectname;
-    var uid = usid;
-    const data = {
-      projectname: pname,
-      userid: uid
-    };
-    axios.post("http://localhost:8080/task/project", data);
-  };
+
 
   const getProjectName = id => {
     const pn = projectData.filter(project => project._id === id);
@@ -74,37 +66,21 @@ const Main = props => {
     }
   };
   const setTimerCount = taskId => {
-    const updatedData = timer;
-    updatedData.id = taskId;
-    updatedData.startTime = new Date();
-    setActiveTimer(true);
-    setTimer(updatedData);
-  };
-  // const Task = (taskname, value) => {
-  //   var tname = formelements.taskname;
-  //   var time = new Date();
-  //   const data = {
-  //     taskname: tname,
-  //     starttime: time,
-  //     projectid: "5dad6351ba0fa422fc1f67a3",
-  //     status: "active",
-  //     userid: usid
-  //   };
-  //   console.log(data);
-  //   axios.post("http://localhost:8080/task/add", data);
-  // };
+    if (!activeTimer) {
+      const updatedData = timer;
+      updatedData.id = taskId;
+      updatedData.startTime = new Date();
+      setActiveTimer(true);
+      setTimer(updatedData);
+    } else {
+      const updatedData = timer;
+      setActiveTimer(false)
+      setCount(0)
+      updatedData.id = taskId;
+      updatedData.startTime = new Date();
+      setTimer(updatedData);
 
-  const projectAdding = () => {
-    const data = {
-      projectname: formelements.projectname,
-      userid: usid
-    };
-    axios.post("http://localhost:8080/task/project", data).then(res => {
-      console.log(res);
-      const newPrjects = projectData.concat(res.data);
-      setProjectData(newPrjects);
-      console.log(newPrjects);
-    });
+    }
   };
 
   const addTask = () => {
@@ -126,14 +102,8 @@ const Main = props => {
       .catch(err => {
         console.log(err);
       });
-    console.log("TASK", taskList);
   };
 
-  console.log({ finalData });
-  const Time = () => {
-    var now = moment();
-    console.log(now);
-  };
   useEffect(() => {
     if (activeTimer) {
       setTimeout(() => {
@@ -156,7 +126,7 @@ const Main = props => {
           class="col-sm-10"
           style={{ backgroundColor: "#ecf0f1", minHeight: "100vh" }}
         >
-          <p>{user}</p> 
+          <p>{user}</p>
           <form
             onSubmit={e => e.preventDefault()}
             style={{ display: "flex", alignItems: "center" }}
@@ -240,7 +210,7 @@ const Main = props => {
                           </div>
 
                           <div className="col-md-2">
-                            <h5>total hours 14hrs</h5>
+                            <h5>00:00:00</h5>
                           </div>
 
                           <div className="col-md-2">
@@ -248,13 +218,13 @@ const Main = props => {
                           </div>
 
                           <div className="col-md-2">
-                            <button onClick={() => setTimerCount(task._id)}>
-                              Start
+                            <button onClick={() => setTimerCount(task._id)} disabled={activeTimer && task._id !== timer.id}>
+                              {task._id === timer.id && activeTimer ? 'Stop' : 'Start'}
                             </button>
                           </div>
 
                           <div className="col-md-2">
-                            <h5>{task._id === timer.id ? count : null}</h5>
+                            <h5>{task._id === timer.id ? moment().hour(0).minute(0).second(count).format('HH : mm : ss') : null}</h5>
                           </div>
                         </div>
                       </div>
